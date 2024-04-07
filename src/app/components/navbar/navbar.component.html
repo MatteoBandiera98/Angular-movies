@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg bg-black">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white">Movies</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a
+          class="nav-link active text-white"
+          [routerLink]="['/']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Home</a
+        >
+        <a
+          class="nav-link text-white"
+          [routerLink]="['/login']"
+          routerLinkActive="active"
+          
+          >Accedi</a
+        >
+        <a
+          class="nav-link text-white"
+          class="nav-link text-white"
+          [routerLink]="['/register']"
+          routerLinkActive="active"
+          
+          >Registrati</a
+        >
+      </div>
+    </div>
+  </div>
+</nav>
