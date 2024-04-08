@@ -24,7 +24,8 @@
         <a
           class="nav-link text-white"
           [routerLink]="['/login']"
-          routerLinkActive="active"
+          routerLinkActive="active" 
+          *ngIf="!checkLocal()"
           
           >Accedi</a
         >
@@ -33,6 +34,7 @@
           class="nav-link text-white"
           [routerLink]="['/register']"
           routerLinkActive="active"
+          *ngIf="!checkLocal()"
           
           >Registrati</a
         >

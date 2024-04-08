@@ -25,7 +25,7 @@ export class HomeComponent {
   constructor(private http: HttpClient ) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>(`${environment.apiURL}/movies`).subscribe(
+    this.http.get<any[]>(`${environment.apiURL}movies-popular`).subscribe(
       data => {
         this.movies = data;
       },

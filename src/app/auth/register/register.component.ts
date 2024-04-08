@@ -15,7 +15,7 @@ constructor (private authsrv: AuthService){}
 onsubmit(form:NgForm){
 console.log(form.value);
 try {
-  this.authsrv.signup(form.value).subscribe
+  this.authsrv.signup(form.value).subscribe()
 }catch(error){
   console.error(error);
 }

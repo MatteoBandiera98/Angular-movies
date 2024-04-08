@@ -21,5 +21,7 @@ export class NavbarComponent implements OnInit {
     logout() {
         this.authSrv.logout();
     }
-
+checkLocal(){
+    return localStorage.getItem('user')
+}
 }
