@@ -8,27 +8,51 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard } from './auth/auth.guard';
+import { PreferitiComponent } from './components/preferiti/preferiti.component';
+import { UserService } from './service/user.service';
+import { DettagliComponent } from './components/dettagli/dettagli.component';
+import { UtentiComponent } from './components/utenti/utenti.component';
+import { DescrizioneFilmComponent } from './components/descrizione-film/descrizione-film.component';
+
 const routes: Route[] = [
   {
-      path: '',
-      component: HomeComponent,
-      canActivate: [AuthGuard]
+    path: '',
+    component: HomeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
     component: LoginComponent,
-},
-{
-  path: 'register',
-  component: RegisterComponent,
-},
-
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
+  {
+    path: 'preferiti',
+    component: PreferitiComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'dettagli',
+    component: DettagliComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'utenti',
+    component: UtentiComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'descrizione',
+    component: DescrizioneFilmComponent,
+    canActivate: [AuthGuard]
+  },
 ];
-
 
 @NgModule({
   declarations: [
@@ -36,7 +60,11 @@ const routes: Route[] = [
     HomeComponent,
     NavbarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PreferitiComponent,
+    DettagliComponent,
+    UtentiComponent,
+    DescrizioneFilmComponent
   ],
   imports: [
     BrowserModule,
@@ -54,15 +82,14 @@ const routes: Route[] = [
         disallowedRoutes: ['example.com/examplebadroute/']
       }
     })
-    
   ],
   providers: [
     {
-provide: HTTP_INTERCEPTORS,
-useClass : TokenInterceptor , 
-multi: true
-
-    }
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    UserService 
   ],
   bootstrap: [AppComponent]
 })

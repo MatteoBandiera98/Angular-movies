@@ -1,15 +1,25 @@
 <div class="container">
-    <div class="row">
-      <div class="col-md-4" *ngFor="let movie of movies">
-        <div class="card mb-4">
-          <img [src]="getMoviePosterUrl(movie.poster_path)" class="card-img-top" [alt]="movie.title">
-          <div class="card-body">
-            <h5 class="card-title">{{ movie.title }}</h5>
-            <p class="card-text">Genres: {{ getGenres(movie.genre_ids) }}</p>
-            <button class="btn btn-primary" (click)="addToFavorites(movie.id)">Add to Favorites</button>
-          </div>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let movie of movies">
+      <div class="card mb-4">
+        <img [src]="getMoviePosterUrl(movie.poster_path)" class="card-img-top" [alt]="movie.title">
+        <div class="card-body">
+          <h5 class="card-title">{{ movie.title }}</h5>
+          <p class="card-text">Genres: {{ getGenres(movie.genre_ids) }}</p>
+          <button class="btn btn-primary" (click)="addToFavorites(movie)" [class.btn-danger]="isInFavorites(movie)">
+            <ng-container *ngIf="!isInFavorites(movie)">Add to Favorites</ng-container>
+            <ng-container *ngIf="isInFavorites(movie)">Remove from Favorites</ng-container>
+          </button>
+              <button class="btn btn-primary m-4">
+                <a class="nav-link text-white" [routerLink]="['/descrizione']" routerLinkActive="active">Dettagli</a>
+              </button>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
+
+
+          
+ 
+   

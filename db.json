@@ -17,6 +17,12 @@
       "password": "$2a$10$s6KhKBX4cOXk.FHXc9znwOkl4UUNIUHtkxSH/ijQAdVWg4UtK1BR6",
       "name": "matteo",
       "id": 4
+    },
+    {
+      "email": "Pippo123@gmail.com",
+      "password": "$2a$10$Y51ZJwccJ0jM7U9Ab.Ppq.K1H6/jOVakcpX3/2gwawMqr0LMbqZyy",
+      "name": "Pippo123",
+      "id": 5
     }
   ],
   "favorites": [

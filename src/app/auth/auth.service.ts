@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Register } from '../models/register.interface';
@@ -44,6 +43,7 @@ export class AuthService {
     logout() {
         this.authSub.next(null);
         localStorage.removeItem('user');
+        clearTimeout(this.timeOut); // Cancella il timeout per il logout automatico
         this.router.navigate(['/login']);
     }
 

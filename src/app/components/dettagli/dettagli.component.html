@@ -1,0 +1,9 @@
+<h3 class="text-center">I tuoi dettagli utente:</h3>
+<div class="container d-flex justify-content-center">
+    <div class="card bg-danger" style="width: 18rem;">
+        <div class="card-body mb-4" *ngIf="utente">
+            <h5 class="card-title">{{utente.name}}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{utente.email}}</h6>
+        </div>
+    </div>
+</div>
