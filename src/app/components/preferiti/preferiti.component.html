@@ -1,13 +1,13 @@
 <div class="container">
     <h2>Your Favorite Movies</h2>
     <div class="row">
-      <div class="col-md-4" *ngFor="let favorite of favorites; let i = index">
+      <div class="col-md-4" *ngFor="let favorite of movies; let i = index">
         <div class="card mb-4">
-          <img [src]="favorite.poster_path" class="card-img-top" [alt]="favorite.title">
+          <img [src]="imageURL+favorite.poster_path" class="card-img-top" [alt]="favorite.title">
           <div class="card-body">
             <h5 class="card-title">{{ favorite.title }}</h5>
-            <p class="card-text">Genres: {{ favorite.genres.join(', ') }}</p>
-            <button class="btn btn-danger" (click)="removeFromFavorites(i)">Remove from Favorites</button>
+            <p class="card-text">Genres: {{ getGenres(favorite.genre_ids) }}</p>
+            <button class="btn btn-danger" (click)="removeFromFavorites(favorite.id)">Remove from Favorites</button>
           </div>
         </div>
       </div>

@@ -5,33 +5,32 @@ import { Favourite } from '../models/authdata.interface';
 import { Movie } from '../models/authdata.interface';
 import { UtentiService } from './utenti.service';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   apiURL = environment.apiURL;
- 
-  constructor(private http: HttpClient, private authsrv : UtentiService) { }
 
-  
+  constructor(private http: HttpClient, private authsrv: UtentiService) {}
+
   recuperaFavoriti(userId: number) {
-    return this.http.get<Favourite[]>(`${this.apiURL}favorites?userId=${userId}`);
-}
+    return this.http.get<Favourite[]>(
+      `${this.apiURL}favorites?userId=${userId}`
+    );
+  }
 
-recuperaFilm() {
+  recuperaFilm() {
     return this.http.get<Movie[]>(`${this.apiURL}movies-popular`);
-}
+  }
 
-dettaglioFilm(id: number) {
+  dettaglioFilm(id: number) {
     return this.http.get<Movie>(`${this.apiURL}movies-popular/${id}`);
-}
+  }
 
-aggiungiFavorito(favorito: Favourite) {
-    return this.http.post(`${this.apiURL}favorites`, favorito);
-}
+  aggiungiFavorito(favorito: Favourite) {
+    return this.http.post<Favourite>(`${this.apiURL}favorites`, favorito);
+  }
 
-rimuoviFavorito(favoritoId: number) {
+  rimuoviFavorito(favoritoId: number) {
     return this.http.delete(`${this.apiURL}favorites/${favoritoId}`);
+  }
 }
-}
- 
-

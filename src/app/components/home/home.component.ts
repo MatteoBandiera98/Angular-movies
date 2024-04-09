@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { UserService } from '../../service/user.service';
-
-interface Genres {
-  [key: number]: string;
-}
+import { Auth, Favourite, Genres } from '../../models/authdata.interface';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +12,9 @@ interface Genres {
 })
 export class HomeComponent implements OnInit {
   movies: any[] = [];
-  favorites: any[] = [];
+  favorites: Favourite[] = [];
+  isLoaded = false;
+  user!: Auth|null;
   genres: Genres = {
     28: 'azione',
     12: 'avventura',
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
     37: 'western'
   };
 
-  constructor(private http: HttpClient ) {}
+  constructor(private http: HttpClient, private utentiSrv: AuthService, private movieSrv: UserService) {}
 
   ngOnInit(): void {
     this.http.get<any[]>(`${environment.apiURL}movies-popular`).subscribe(
@@ -48,6 +48,17 @@ export class HomeComponent implements OnInit {
         console.error('An error occurred while fetching movies:', error);
       }
     );
+
+    this.utentiSrv.user$.subscribe((value) => {
+      this.user = value;
+      if (value) {
+        this.movieSrv.recuperaFavoriti(value.user.id).subscribe((value) => {
+          console.log(value)
+          this.favorites = value;
+          this.isLoaded = true
+        })
+      }
+    })
   }
 
   getMoviePosterUrl(posterPath: string): string {
@@ -59,18 +70,34 @@ export class HomeComponent implements OnInit {
   }
 
   addToFavorites(movie: any): void {
-    if (!this.isInFavorites(movie)) {
-      this.favorites.push(movie);
-    } else {
-      this.removeFromFavorites(movie);
+    console.log(this.user)
+    if (this.user !== null) {
+      if (!this.isInFavorites(movie)) {
+        let favorite: Favourite = {
+          userId: this.user.user.id,
+          movieId: movie.id
+        }
+        this.movieSrv.aggiungiFavorito(favorite).subscribe((value) => {
+          this.favorites.push(value)
+        });
+      } else {
+        let find = this.favorites.find((value) => value.movieId === movie.id)
+        if (find!== undefined) {
+          this.removeFromFavorites(find);
+        }
+      }
     }
   }
 
   isInFavorites(movie: any): boolean {
-    return this.favorites.some(favorite => favorite.id === movie.id);
+    console.log(this.favorites)
+    return this.favorites.some(favorite => favorite.movieId === movie.id);
   }
 
-  removeFromFavorites(movie: any): void {
-    this.favorites = this.favorites.filter(favorite => favorite.id !== movie.id);
+  removeFromFavorites(favoriteP: Favourite): void {
+    this.favorites = this.favorites.filter(favorite => favorite.id !== favoriteP.id);
+    if (favoriteP.id) {
+      this.movieSrv.rimuoviFavorito(favoriteP.id).subscribe()
+    }
   }
 }

@@ -15,7 +15,8 @@ export interface Movie {
     id: number,
     poster_path: string,
     title: string,
-    overview: string
+    overview: string,
+    genre_ids: number[]
 }
 
 export interface Auth {
@@ -31,3 +32,7 @@ export interface Utente {
     name: string,
     email: string
 }
+
+export interface Genres {
+    [key: number]: string;
+  }
